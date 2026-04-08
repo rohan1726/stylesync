@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model ScrapedSite {
+  id               String         @id @default(uuid())
+  url              String
+  rawHtml          String?
+  screenshotPath   String?
+  extractionStatus String         @default("pending")
+  errorMessage     String?
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+
+  designTokens    DesignToken[]
+}
+
+model DesignToken {
+  id           String      @id @default(uuid())
+  siteId       String
+  site         ScrapedSite @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  colors       String      @default("{}")
+  typography   String      @default("{}")
+  spacing      String      @default("{}")
+  shadows      String      @default("{}")
+  borderRadius String      @default("{}")
+
+  isActive     Boolean     @default(true)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  lockedTokens   LockedToken[]
+  versionHistory VersionHistory[]
+}
+
+model LockedToken {
+  id          String      @id @default(uuid())
+  tokenId     String
+  token       DesignToken @relation(fields: [tokenId], references: [id], onDelete: Cascade)
+
+  tokenPath   String
+  lockedValue String
+  lockedAt    DateTime    @default(now())
+
+  @@unique([tokenId, tokenPath])
+}
+
+model VersionHistory {
+  id            String      @id @default(uuid())
+  tokenId       String
+  token         DesignToken @relation(fields: [tokenId], references: [id], onDelete: Cascade)
+
+  tokenPath     String
+  previousValue String
+  newValue      String
+  changeType    String
+
+  createdAt     DateTime    @default(now())
+}
