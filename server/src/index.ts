@@ -32,9 +32,10 @@ app.get('/api/health', (_req, res) => {
 });
 
 // Start server
-app.listen(PORT, () => {
-  console.log(`\n🎨 StyleSync API server running at http://localhost:${PORT}`);
-  console.log(`   Health: http://localhost:${PORT}/api/health\n`);
+const HOST = '0.0.0.0';
+app.listen(Number(PORT), HOST, () => {
+  console.log(`\n🎨 StyleSync API server running at http://${HOST}:${PORT}`);
+  console.log(`   Health: http://${HOST}:${PORT}/api/health\n`);
 });
 
 export default app;
