@@ -1,9 +1,16 @@
 [build]
 builder = "NIXPACKS"
-buildCommand = "cd server && npm install && npx prisma generate && npm run build"
+# Build ke time dependencies, prisma generate, tsc build aur playwright install sab hoga
+buildCommand = "cd server && npm install && npx prisma generate && npm run build && npx playwright install --with-deps chromium"
 
 [deploy]
+# Start ke time database sync aur server run
 startCommand = "cd server && npx prisma db push && node dist/index.js"
 healthcheckPath = "/api/health"
+healthcheckTimeout = 300 
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 3
+
+[nixpacks]
+# System dependencies for Canvas/Sharp and Playwright
+aptPkgs = ["libnss3", "libatk1.0-0", "libatk-bridge2.0-0", "libcups2", "libdrm2", "libxkbcommon0", "libxcomposite1", "libxdamage1", "libxrandr2", "libgbm1", "libpango-1.0-0", "libcairo2", "libasound2", "libx11-6", "libxext6", "libxrender1", "libfreetype6", "libfontconfig1"]
