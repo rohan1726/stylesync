@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:3001/api';
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
 export async function submitUrl(url: string): Promise<{ siteId: string; status: string }> {
   const res = await fetch(`${API_BASE}/scrape`, {
