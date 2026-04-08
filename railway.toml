@@ -3,9 +3,8 @@ builder = "NIXPACKS"
 buildCommand = "cd server && npm install && npx prisma generate && npm run build && npx playwright install --with-deps chromium"
 
 [deploy]
-# Path ko simplify kiya hai
-startCommand = "cd server && npx prisma db push && node dist/index.js"
-# Healthcheck path hata diya taaki Railway auto-detect kare
+# Providing a default DATABASE_URL inline to prevent Prisma crash when env var is missing
+startCommand = "cd server && DATABASE_URL=file:./dev.db npx prisma db push && node dist/index.js"
 healthcheckTimeout = 300 
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 3
