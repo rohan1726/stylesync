@@ -11,7 +11,7 @@ router.get('/:siteId', async (req: Request, res: Response): Promise<void> => {
     const { siteId } = req.params;
 
     const token = await prisma.designToken.findFirst({
-      where: { siteId, isActive: true },
+      where: { siteId: siteId as string, isActive: true },
       include: {
         lockedTokens: true,
         versionHistory: {
@@ -57,7 +57,7 @@ router.put('/:siteId', async (req: Request, res: Response): Promise<void> => {
     }
 
     const token = await prisma.designToken.findFirst({
-      where: { siteId, isActive: true },
+      where: { siteId: siteId as string, isActive: true },
     });
 
     if (!token) {
@@ -132,7 +132,7 @@ router.post('/:siteId/lock', async (req: Request, res: Response): Promise<void> 
     }
 
     const token = await prisma.designToken.findFirst({
-      where: { siteId, isActive: true },
+      where: { siteId: siteId as string, isActive: true },
     });
 
     if (!token) {
@@ -199,7 +199,7 @@ router.delete('/:siteId/lock', async (req: Request, res: Response): Promise<void
     }
 
     const token = await prisma.designToken.findFirst({
-      where: { siteId, isActive: true },
+      where: { siteId: siteId as string, isActive: true },
     });
 
     if (!token) {
@@ -238,7 +238,7 @@ router.get('/:siteId/history', async (req: Request, res: Response): Promise<void
     const { siteId } = req.params;
 
     const token = await prisma.designToken.findFirst({
-      where: { siteId, isActive: true },
+      where: { siteId: siteId as string, isActive: true },
     });
 
     if (!token) {

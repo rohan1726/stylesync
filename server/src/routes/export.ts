@@ -17,7 +17,7 @@ router.get('/:siteId', async (req: Request, res: Response): Promise<void> => {
     const format = (req.query.format as string) || 'css';
 
     const token = await prisma.designToken.findFirst({
-      where: { siteId, isActive: true },
+      where: { siteId: siteId as string, isActive: true },
     });
 
     if (!token) {

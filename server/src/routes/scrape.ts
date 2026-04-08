@@ -144,7 +144,7 @@ router.get('/:siteId/status', async (req: Request, res: Response): Promise<void>
     const { siteId } = req.params;
 
     const site = await prisma.scrapedSite.findUnique({
-      where: { id: siteId },
+      where: { id: siteId as string },
       include: {
         designTokens: {
           where: { isActive: true },
