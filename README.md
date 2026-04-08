@@ -1,4 +1,4 @@
-<![CDATA[<div align="center">
+<div align="center">
 
 # 🎨 StyleSync
 
@@ -54,7 +54,7 @@ StyleSync is a powerful web-based design system extraction tool that scrapes any
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/YOUR_USERNAME/stylesync.git
+   git clone https://github.com/rohan1726/stylesync.git
    cd stylesync
    ```
 
@@ -173,4 +173,4 @@ This project is licensed under the MIT License.
 <div align="center">
   <b>Built with ❤️ using React, Express & Playwright</b>
 </div>
-]]>
+
