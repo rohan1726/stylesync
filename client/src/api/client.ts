@@ -1,4 +1,8 @@
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+console.log('🚀 API Base URL:', API_BASE);
+if (API_BASE.includes('localhost') && window.location.hostname !== 'localhost') {
+  console.warn('⚠️ Frontend is running on a non-localhost domain, but API_BASE points to localhost. Environment variables might be missing.');
+}
 
 export async function submitUrl(url: string): Promise<{ siteId: string; status: string }> {
   const res = await fetch(`${API_BASE}/scrape`, {
