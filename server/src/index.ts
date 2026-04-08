@@ -4,6 +4,16 @@ import scrapeRoutes from './routes/scrape';
 import tokenRoutes from './routes/tokens';
 import exportRoutes from './routes/export';
 
+// Debug: Global error handlers for Railway
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('❌ Unhandled Rejection at:', promise, 'reason:', reason);
+});
+
+process.on('uncaughtException', (err) => {
+  console.error('🚨 Uncaught Exception thrown:', err);
+  process.exit(1);
+});
+
 const app = express();
 const PORT = process.env.PORT || 3001;
 
